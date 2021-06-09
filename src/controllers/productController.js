@@ -1,10 +1,15 @@
 import asyncHandler from 'express-async-handler';
 import Product from '../models/productModel.js';
 
+
+//GET ALL THE PRODUCTS
+
 const getProducts = asyncHandler(async (req, res) => {
   const products = await Product.find({});
   res.json({ products });
 });
+
+// GET PRODUCT BY ID
 
 const getProductById = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
@@ -16,6 +21,9 @@ const getProductById = asyncHandler(async (req, res) => {
   }
 });
 
+
+// CREATE A PRODUCT
+
 const createProduct = asyncHandler(async (req, res) => {
   const { name, price, description } = req.body;
   const product = new Product({
@@ -26,6 +34,8 @@ const createProduct = asyncHandler(async (req, res) => {
   const createdProduct = await product.save();
   res.status(201).json(createdProduct);
 });
+
+// UPDATE A PRODUCT
 
 const updateProduct = asyncHandler(async (req, res) => {
   const { name, price, description } = req.body;
